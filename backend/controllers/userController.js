@@ -23,8 +23,6 @@ exports.userSignIn = async (req, res) => {
 
         const emailDomain = email.split("@")[1]?.split(".")[0];
 
-        console.log({ emailDomain }, phone);
-
         if (phone) phone = phone.trim();
 
         if (type === "customer" && emailDomain === "xyz" && !phone)
@@ -96,8 +94,6 @@ exports.userSignUp = async (req, res) => {
             userId: user._id,
             name: user.name,
         };
-
-        console.log(jwtData);
 
         const token = jwt.sign(jwtData, process.env.JWT_PRIVATE_KEY_USER, {});
 

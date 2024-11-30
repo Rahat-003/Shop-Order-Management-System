@@ -11,13 +11,14 @@ router.get("/", async (req, res) => {
 
 router.use("/user", require("./user/index"));
 
-router.use(
-    "/dashboard",
-    checkUserToken,
-    require("./dashboard/endPoint/dashboard.route")
-);
 
-router.use("/order", checkUserToken, require("./order/endPoint/order.route"));
+router.use("/dashboard", require("./dashboard/endPoint/dashboard.route"));
+
+router.use(
+    "/order",
+    checkUserToken("customer"),
+    require("./order/endPoint/order.route")
+);
 
 
 module.exports = router;
