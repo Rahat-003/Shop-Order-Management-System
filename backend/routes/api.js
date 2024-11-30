@@ -16,9 +16,14 @@ router.use("/dashboard", require("./dashboard/endPoint/dashboard.route"));
 
 router.use(
     "/order",
-    checkUserToken("customer"),
+    checkUserToken(["customer"]),
     require("./order/endPoint/order.route")
 );
 
+router.use(
+    "/product",
+    checkUserToken(["admin"]),
+    require("./product/endPoint/product.route")
+);
 
 module.exports = router;
