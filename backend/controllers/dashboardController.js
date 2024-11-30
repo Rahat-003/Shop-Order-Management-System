@@ -4,7 +4,19 @@ const {
     errorHandler,
 } = require("./../utils/apiResponse");
 
-exports.getDashboard = async (req, res) => {
+exports.getOrdersList = async (req, res) => {
+    try {
+    } catch (err) {
+        errorHandler(res, err);
+    }
+};
+exports.updateOrder = async (req, res) => {
+    try {
+    } catch (err) {
+        errorHandler(res, err);
+    }
+};
+exports.deleteOrder = async (req, res) => {
     try {
     } catch (err) {
         errorHandler(res, err);

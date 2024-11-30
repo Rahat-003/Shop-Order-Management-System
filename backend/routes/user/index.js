@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { checkUserToken } = require("./../../authentication/checkUserToken");
 
 /**
  *
@@ -8,6 +9,5 @@ const router = express.Router();
  */
 
 router.use("/auth", require("./endPoint/auth.user.route"));
-router.use("/dashboard", require("./endPoint/dashboard.user.route"));
 
 module.exports = router;
