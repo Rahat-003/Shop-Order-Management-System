@@ -22,6 +22,11 @@ const OrderSchema = new Schema(
                 required: true,
             },
         ],
+        status: {
+            type: String,
+            enum: ["delivered", "pending", "cancelled"],
+            default: "pending",
+        },
     },
     { timestamps: true }
 );
