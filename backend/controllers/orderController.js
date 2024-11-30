@@ -4,7 +4,7 @@ const {
     errorHandler,
 } = require("./../utils/apiResponse");
 
-exports.placeOrder = async (req, res) => {
+exports.userSubmitForm = async (req, res) => {
     try {
     } catch (err) {
         errorHandler(res, err);
