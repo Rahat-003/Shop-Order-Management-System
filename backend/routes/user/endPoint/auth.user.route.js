@@ -3,7 +3,7 @@ const router = express.Router();
 const userController = require("./../../../controllers/userController");
 
 /**
- * /app/user/auth
+ *
  * @url http://localhost:5001/user/auth
  *
  */

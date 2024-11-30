@@ -8,4 +8,6 @@ const router = express.Router();
  */
 
 router.use("/auth", require("./endPoint/auth.user.route"));
+router.use("/dashboard", require("./endPoint/dashboard.user.route"));
+
 module.exports = router;
