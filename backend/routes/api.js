@@ -9,4 +9,6 @@ router.get("/", async (req, res) => {
     res.send("Welcome to Shop Order Management System API");
 });
 
+router.use("/user", require("./user/index"));
+
 module.exports = router;
