@@ -14,14 +14,10 @@ router.use("/user", require("./user/index"));
 router.use(
     "/dashboard",
     checkUserToken,
-    require("./dashboard/endPoint/dashboard.user.route")
+    require("./dashboard/endPoint/dashboard.route")
 );
 
-router.use(
-    "/order",
-    checkUserToken,
-    require("./order/endPoint/order.user.route")
-);
+router.use("/order", checkUserToken, require("./order/endPoint/order.route"));
 
 
 module.exports = router;
