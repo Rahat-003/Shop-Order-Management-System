@@ -45,8 +45,6 @@ exports.userSignIn = async (req, res) => {
             name: user.name,
         };
 
-        console.log(jwtData);
-
         const token = jwt.sign(jwtData, process.env.JWT_PRIVATE_KEY_USER, {});
 
         successResponse(res, {
