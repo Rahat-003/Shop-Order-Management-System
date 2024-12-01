@@ -12,13 +12,13 @@ const OrderSchema = new Schema(
         },
         orderId: {
             type: String,
-            required: false,
+            required: true,
             unique: true,
         },
         products: [
             {
                 type: ObjectId,
-                ref: "Product",
+                ref: "products",
                 required: true,
             },
         ],
@@ -30,5 +30,8 @@ const OrderSchema = new Schema(
     },
     { timestamps: true }
 );
+
+OrderSchema.index({ user: 1 });
+OrderSchema.index({ orderId: 1 });
 
 module.exports = mongoose.model("order", OrderSchema);

@@ -8,8 +8,8 @@ const orderController = require("../../../controllers/orderController");
  *
  */
 
-router.get("/", orderController.getOrderListForUser);
-router.post("/submit", orderController.userSubmitForm);
-router.put("/cancel", orderController.cancelOrderFromUser);
+router.get("/:customerId", orderController.getOrderListForUser);
+router.post("/submit/:customerId", orderController.userSubmitForm);
+router.put("/cancel/:customerId", orderController.cancelOrderFromUser);
 
 module.exports = router;
