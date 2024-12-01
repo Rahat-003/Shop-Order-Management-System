@@ -95,7 +95,7 @@ exports.deleteProduct = async (req, res) => {
     try {
         const { productId } = req.params;
 
-        const deletedProduct = await Product.findByIdAndDelete(productId);
+        const deletedProduct = await ProductModel.findByIdAndDelete(productId);
 
         if (!deletedProduct) {
             return res.status(404).json({ message: "Product not found" });
@@ -104,7 +104,7 @@ exports.deleteProduct = async (req, res) => {
         successResponse(res, {
             message: "product deleted successfully",
             data: {
-                product,
+                deletedProduct,
             },
         });
     } catch (err) {
