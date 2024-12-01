@@ -30,6 +30,10 @@ const UserSchema = new Schema(
             enum: ["admin", "manager", "customer"],
             default: "admin",
         },
+        deletedAt: {
+            type: Date,
+            default: null,
+        },
     },
     { timestamps: true }
 );
