@@ -29,6 +29,13 @@ const productSchema = new Schema(
             enum: ["food", "grocery"],
             required: true,
         },
+        image: {
+            type: String,
+        },
+        deletedAt: {
+            type: Date,
+            default: null,
+        },
     },
     {
         timestamps: true,

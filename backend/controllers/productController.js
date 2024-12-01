@@ -3,10 +3,19 @@ const {
     errorResponse,
     errorHandler,
 } = require("./../utils/apiResponse");
+const ProductModel = require("./../models/ProductModel");
+const productValidationSchema = require("../validation/product/productValidationSchema");
+const productUpdateSchema = require("../validation/product/productUpdateSchema");
 
 exports.getProductList = async (req, res) => {
     try {
-        res.status(200).json({ message: "Successfully fetched productList" });
+        const product = await ProductModel.find();
+        successResponse(res, {
+            message: "Successfully fetched products",
+            data: {
+                product,
+            },
+        });
     } catch (err) {
         errorHandler(res, err);
     }
@@ -14,21 +23,90 @@ exports.getProductList = async (req, res) => {
 
 exports.addProduct = async (req, res) => {
     try {
-        res.status(200).json({ message: "Successfully added product" });
+        const { barcodeNumber } = req.body;
+        const { error, value } = productValidationSchema.validate(req.body, {
+            abortEarly: true,
+        });
+
+        if (error) {
+            return errorResponse(res, error.message);
+        }
+        const barcodeNumberExists = await ProductModel.findOne({
+            barcodeNumber,
+            deletedAt: null,
+        });
+
+        if (barcodeNumberExists)
+            return errorResponse(res, "barcode number already exists.");
+
+        const product = await ProductModel.create(value);
+
+        successResponse(res, {
+            message: "product added successfully",
+            data: {
+                product,
+            },
+        });
     } catch (err) {
         errorHandler(res, err);
     }
 };
+
 exports.updateProduct = async (req, res) => {
     try {
-        res.status(200).json({ message: "Successfully updated product" });
+        const { productId } = req.params;
+
+        if (Object.keys(req.body).length === 0) {
+            return errorResponse(
+                res,
+                "At least one field must be provided to update"
+            );
+        }
+        const { error, value } = productUpdateSchema.validate(req.body, {
+            abortEarly: true,
+        });
+
+        if (error) {
+            return errorResponse(res, error.message);
+        }
+
+        const product = await ProductModel.findById(productId);
+        if (!product) {
+            return errorResponse(res, "Product not found", 404);
+        }
+
+        Object.assign(product, value);
+
+        await product.save();
+
+        successResponse(res, {
+            message: "product updated successfully",
+            data: {
+                product,
+            },
+        });
     } catch (err) {
+        console.log(err);
         errorHandler(res, err);
     }
 };
+
 exports.deleteProduct = async (req, res) => {
     try {
-        res.status(200).json({ message: "Successfully deleted product" });
+        const { productId } = req.params;
+
+        const deletedProduct = await Product.findByIdAndDelete(productId);
+
+        if (!deletedProduct) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        successResponse(res, {
+            message: "product deleted successfully",
+            data: {
+                product,
+            },
+        });
     } catch (err) {
         errorHandler(res, err);
     }
