@@ -8,19 +8,19 @@ This project is the **backend application** for managing shop orders. It include
 - Fields for **Name**, **Email**, and **Product Selection** via a dropdown menu.
 - Conditional logic to add a **Phone** field for emails ending with `@xyz.com`.
 
-### 2. reCAPTCHA Integration *(Ongoing)*
+### 2. reCAPTCHA Integration *(Pending)*
 - Integration of **Google reCAPTCHA** to prevent bot submissions and ensure security.
 
-### 3. Form Submission Rate Limiting *(Ongoing)*
+### 3. Form Submission Rate Limiting *(Pending)*
 - Limits form submissions to a maximum of **10 per minute** to manage traffic and prevent abuse.
 
 ### 4. Database Validation
 - Ensures data consistency and accuracy by validating form data before saving it to the database.
 
 ### 5. Admin Dashboard
-- Backend dashboard displaying all pre-orders in a **list view**.
+- Backend dashboard displaying all pre-orders. <!-- in a **list view**. -->
 - Features:
-  - **Search** functionality.
+  - **Search** functionality. *(Pending)*
   - **Pagination** for easy navigation.
   - **Ordering** capabilities for improved management.
 
@@ -29,7 +29,7 @@ This project is the **backend application** for managing shop orders. It include
   - **Admin**: Full access to the dashboard and data.
   - **Manager**: View-only access for monitoring.
 
-### 7. Optimized Search *(Ongoing)*
+### 7. Optimized Search *(Pending)*
 - Allows searching by **email** and **name**.
 - Implements indexing and optimized queries for fast and efficient search performance.
 
