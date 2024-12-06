@@ -11,7 +11,7 @@ This project is the **backend application** for managing shop orders. It include
 ### 2. reCAPTCHA Integration *(Pending)*
 - Integration of **Google reCAPTCHA** to prevent bot submissions and ensure security.
 
-### 3. Form Submission Rate Limiting *(Pending)*
+### 3. Form Submission Rate Limiting
 - Limits form submissions to a maximum of **10 per minute** to manage traffic and prevent abuse.
 
 ### 4. Database Validation
