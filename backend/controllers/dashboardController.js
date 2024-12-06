@@ -1,3 +1,4 @@
+const OrderModel = require("./../models/OrderModel");
 const {
     successResponse,
     errorResponse,
@@ -6,6 +7,20 @@ const {
 
 exports.getOrdersList = async (req, res) => {
     try {
+        const { page = 1, limit = 10 } = req.body;
+        let config = {};
+
+        const skip = (page - 1) * limit;
+
+        const [totalOrders, orderList] = await Promise.all([
+            OrderModel.countDocuments(config),
+            OrderModel.findOne({ config })
+                .populate("user")
+                .populate("products")
+                .skip(skip)
+                .limit(limit),
+        ]);
+
         res.status(200).json({ message: "Successfully fetched orderList" });
     } catch (err) {
         errorHandler(res, err);

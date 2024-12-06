@@ -8,15 +8,20 @@ const {
     orderValidationSchema,
 } = require("./../validation/order/orderInputValidation");
 const { generateOrderId } = require("./../utils/getOrderId");
+const { checkProductAvailability } = require("./../utils/productAvailability");
 
 exports.getOrderListForUser = async (req, res) => {
     try {
         const { customerId } = req.params;
 
-        const orderList = await OrderModel.find({
-            _id: customerId,
+        const orderList = await OrderModel.findOne({
+            user: customerId,
             status: "pending",
         }).populate("products");
+
+        const errorList = await checkProductAvailability(orderList);
+
+        if (errorList.length) return errorResponse(res, errorList);
 
         successResponse(res, {
             message: "order fetched successfully",
@@ -30,6 +35,7 @@ exports.getOrderListForUser = async (req, res) => {
 };
 
 // for placing order and updating the order
+// product availability will be handled from frontend for this api
 exports.userSubmitForm = async (req, res) => {
     try {
         const { customerId } = req.params;
@@ -47,6 +53,15 @@ exports.userSubmitForm = async (req, res) => {
             status: "pending",
         });
 
+        const productIds = {
+            products: [...products],
+        };
+
+        if (alreadyPlacedOrders)
+            productIds.products.push(...alreadyPlacedOrders.products);
+
+        // if (errorList.length) return errorResponse(res, errorList);
+
         let orderList;
 
         if (alreadyPlacedOrders) {
@@ -56,7 +71,6 @@ exports.userSubmitForm = async (req, res) => {
             const orderId = await generateOrderId();
             orderList = await OrderModel.create({
                 user: customerId,
-                _id: customerId,
                 orderId,
                 products,
                 status: "pending",

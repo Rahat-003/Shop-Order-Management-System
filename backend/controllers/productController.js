@@ -9,7 +9,9 @@ const productUpdateSchema = require("../validation/product/productUpdateSchema")
 
 exports.getProductList = async (req, res) => {
     try {
-        const product = await ProductModel.find();
+        const product = await ProductModel.find({
+            deletedAt: null,
+        });
         successResponse(res, {
             message: "Successfully fetched products",
             data: {
